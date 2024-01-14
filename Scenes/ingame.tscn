@@ -1983,8 +1983,8 @@ metadata/_edit_lock_ = true
 [node name="PointLight2D" type="PointLight2D" parent="CanvasModulate"]
 texture_filter = 2
 texture_repeat = 1
-position = Vector2(321, 184.5)
-scale = Vector2(1, 1.03611)
+position = Vector2(319.5, 184.5)
+scale = Vector2(1.00469, 1.03611)
 color = Color(0.941176, 0.682353, 0.498039, 1)
 energy = 2.87
 texture = SubResource("GradientTexture2D_o67j5")

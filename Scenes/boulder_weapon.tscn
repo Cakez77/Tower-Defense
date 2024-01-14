@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1dbu8aicy86k"]
+
+[ext_resource type="Script" path="res://Scripts/boulder_weapon.gd" id="1_58tfq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tvjgg"]
+radius = 126.036
+
+[node name="FirstAttackArea" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_58tfq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.435, 1)
+shape = SubResource("CircleShape2D_tvjgg")

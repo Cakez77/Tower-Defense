@@ -19,10 +19,18 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=640
 window/size/viewport_height=360
+window/size/initial_position_type=2
+window/size/initial_position=Vector2i(500, 0)
 window/size/always_on_top=true
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="viewport"
+
+[layer_names]
+
+2d_physics/layer_1="Tower & Enemy Spread"
+2d_physics/layer_2="Enemy Hitting Tower"
+2d_physics/layer_3="Enemy In Attack Range"
 
 [rendering]
 
