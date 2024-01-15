@@ -1,7 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://cfu5i36e631d6"]
+[gd_scene load_steps=12 format=3 uid="uid://cfu5i36e631d6"]
 
 [ext_resource type="Texture2D" uid="uid://dj7it275sxul1" path="res://Assets/Sprites/boulder.png" id="1_ei1or"]
-[ext_resource type="Script" path="res://Scripts/boulder_projectile.gd" id="1_i1eeh"]
+[ext_resource type="Script" path="res://Scripts/projectile.gd" id="1_y7jhu"]
 [ext_resource type="Texture2D" uid="uid://bpf23lq205n6n" path="res://Assets/Sprites/smoke_small.png" id="3_kb2e2"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6tdul"]
@@ -38,9 +38,12 @@ anim_speed_max = 1.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_5bdso"]
 radius = 8.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_s1tmo"]
+radius = 15.2329
+
 [node name="boulder_projectile" type="Area2D"]
 collision_mask = 4
-script = ExtResource("1_i1eeh")
+script = ExtResource("1_y7jhu")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_6tdul")
@@ -60,5 +63,14 @@ texture = ExtResource("1_ei1or")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, 1)
 shape = SubResource("CircleShape2D_5bdso")
+
+[node name="HitArea" type="Area2D" parent="."]
+position = Vector2(2, 1)
+collision_mask = 4
+
+[node name="Collider" type="CollisionShape2D" parent="HitArea"]
+position = Vector2(0, -1)
+scale = Vector2(1.25, 1)
+shape = SubResource("CircleShape2D_s1tmo")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

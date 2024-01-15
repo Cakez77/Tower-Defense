@@ -2,12 +2,13 @@ extends Area2D
 
 var target : Enemy = null
 var damage : float = 0.0
+var type : Enemy.EnemyType = Enemy.EnemyType.PHYSICAL
 var heightOverTime : float = 0.0
 var travelTimeTotal : float = 0.0
 var travelTime : float = 0.0
 var startPos : Vector2 = Vector2.ZERO
-
-var impactEffectScene = preload("res://Scenes/impact_effect.tscn")
+var pierceCount : int = 0
+var impactEffectScene = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,15 +29,19 @@ func _physics_process(delta):
 	global_position.y  -= (1 - apex * apex) * (10 + travelTimeTotal);
 
 	look_at(target.global_position)
-	
-#	position += dir * 200 * delta
-	
 
 
 func _on_body_entered(body):
 	if body is Enemy:
-		body.inflict_damage(damage)
-		var impactEffect = impactEffectScene.instantiate()
-		impactEffect.global_position = global_position
-		get_tree().get_root().add_child(impactEffect)
+		var targets = $HitArea.get_overlapping_bodies()
+		for target in targets:
+			if target is Enemy:
+				target.inflict_damage(damage, type)
+			
+				# Effect if present
+				if impactEffectScene != null:
+					var impactEffect = impactEffectScene.instantiate()
+					impactEffect.global_position = target.global_position
+					get_tree().get_root().add_child(impactEffect)
+			
 		queue_free()

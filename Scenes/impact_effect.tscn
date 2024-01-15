@@ -29,7 +29,6 @@ anim_speed_max = 1.0
 
 [node name="Impact Effect" type="GPUParticles2D"]
 material = SubResource("CanvasItemMaterial_taxog")
-emitting = false
 amount = 1
 process_material = SubResource("ParticleProcessMaterial_72drs")
 texture = ExtResource("1_4rjey")
