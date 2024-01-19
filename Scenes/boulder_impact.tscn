@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bnbrujo7pni4a"]
 
-[ext_resource type="Texture2D" uid="uid://bpf23lq205n6n" path="res://Assets/Sprites/smoke_small.png" id="1_4rjey"]
+[ext_resource type="Texture2D" uid="uid://bpf23lq205n6n" path="res://Assets/Sprites/smoke_small.png" id="1_qdv6w"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_taxog"]
 particles_animation = true
@@ -18,20 +18,19 @@ curve = SubResource("Curve_cel77")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_72drs"]
 particle_flag_disable_z = true
-gravity = Vector3(0, 0, 0)
 initial_velocity_min = 2.0
 initial_velocity_max = 4.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_168d8")
 anim_speed_min = 1.0
 anim_speed_max = 1.0
 
 [node name="Impact Effect" type="GPUParticles2D"]
 material = SubResource("CanvasItemMaterial_taxog")
+emitting = false
 amount = 1
 process_material = SubResource("ParticleProcessMaterial_72drs")
-texture = ExtResource("1_4rjey")
+texture = ExtResource("1_qdv6w")
 one_shot = true
 speed_scale = 2.16
 explosiveness = 1.0

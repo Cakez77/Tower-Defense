@@ -8,6 +8,7 @@ var travelTimeTotal : float = 0.0
 var travelTime : float = 0.0
 var startPos : Vector2 = Vector2.ZERO
 var pierceCount : int = 0
+var arcHeight : float = 0.0
 var impactEffectScene = null
 
 # Called when the node enters the scene tree for the first time.
@@ -26,7 +27,7 @@ func _physics_process(delta):
 	var t : float = travelTime / travelTimeTotal
 	global_position = lerp(startPos, target.global_position, t);
 	var apex : float = abs(t - 0.5) * 2;
-	global_position.y  -= (1 - apex * apex) * (10 + travelTimeTotal);
+	global_position.y  -= (1 - apex * apex) * (arcHeight + travelTimeTotal);
 
 	look_at(target.global_position)
 
@@ -42,6 +43,7 @@ func _on_body_entered(body):
 				if impactEffectScene != null:
 					var impactEffect = impactEffectScene.instantiate()
 					impactEffect.global_position = target.global_position
+					impactEffect.emitting = true
 					get_tree().get_root().add_child(impactEffect)
 			
 		queue_free()

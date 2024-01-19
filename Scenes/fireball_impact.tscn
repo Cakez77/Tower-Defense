@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://caxnuno6f57x"]
+
+[ext_resource type="Texture2D" uid="uid://xt3lo6225g68" path="res://Assets/Sprites/blast_big.png" id="1_lvndh"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_taxog"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_tgngf"]
+max_value = 3.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1.76842), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_eehqt"]
+curve = SubResource("Curve_tgngf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m2l2l"]
+particle_flag_disable_z = true
+initial_velocity_min = 2.0
+initial_velocity_max = 4.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_eehqt")
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="Impact Effect" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_taxog")
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_m2l2l")
+texture = ExtResource("1_lvndh")
+one_shot = true
+speed_scale = 2.16
+explosiveness = 1.0

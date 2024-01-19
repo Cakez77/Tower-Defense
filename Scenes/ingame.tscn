@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://py4uv3p0k2bi"]
+[gd_scene load_steps=25 format=3 uid="uid://py4uv3p0k2bi"]
 
 [ext_resource type="Texture2D" uid="uid://dehn8hura3ccs" path="res://Assets/Sprites/lighthouse.png" id="1_3y0x2"]
 [ext_resource type="Script" path="res://Scripts/Tower.gd" id="2_5if5o"]
@@ -8,18 +8,25 @@
 [ext_resource type="Texture2D" uid="uid://d1iwd23e60dll" path="res://Assets/Sprites/LogA.png" id="5_oteew"]
 [ext_resource type="Texture2D" uid="uid://ckbu4v5mf8b4v" path="res://Assets/Sprites/PineC.png" id="6_sb3e4"]
 [ext_resource type="Texture2D" uid="uid://1g0ln0etxbyj" path="res://Assets/Sprites/rockA.png" id="7_u3cq5"]
+[ext_resource type="PackedScene" uid="uid://bdl50xxntlt4q" path="res://Scenes/pine_6.tscn" id="7_yfbcu"]
 [ext_resource type="Texture2D" uid="uid://fo6ps732mwo4" path="res://Assets/Sprites/tree2.png" id="8_0wwx4"]
 [ext_resource type="Texture2D" uid="uid://dvjq5ca6cak1d" path="res://Assets/Sprites/plantD.png" id="9_0vtjb"]
 [ext_resource type="Texture2D" uid="uid://3uxkxk68webo" path="res://Assets/Sprites/plant2.png" id="10_hr4tq"]
 [ext_resource type="Texture2D" uid="uid://c3cg1afp3kdwr" path="res://Assets/Sprites/PlantA.png" id="11_5b8cs"]
 [ext_resource type="Texture2D" uid="uid://d1os4uklnpcfx" path="res://Assets/Sprites/PlantC.png" id="12_m6ima"]
 [ext_resource type="Script" path="res://Scripts/Spawner.gd" id="14_ul0js"]
+[ext_resource type="Texture2D" uid="uid://dhfnwspu3tflt" path="res://Assets/Sprites/upgrade_slots.png" id="16_dtlns"]
+[ext_resource type="Texture2D" uid="uid://cifqoq8kssprl" path="res://Assets/Sprites/hp_bar.png" id="17_1lhwi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5hile"]
-height = 32.0
+radius = 12.5
+height = 25.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tvjgg"]
-radius = 86.4632
+radius = 125.369
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_alirf"]
+radius = 110.78
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qww4a"]
 texture = ExtResource("2_fgyyq")
@@ -1943,19 +1950,21 @@ fill_to = Vector2(0.720183, 0.00815494)
 
 [node name="Main Node" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("14_ul0js")
+scale = Vector2(2, 2)
 
 [node name="Tower" type="StaticBody2D" parent="." groups=["Tower"]]
 y_sort_enabled = true
-position = Vector2(321, 173)
+position = Vector2(295.5, 173)
 script = ExtResource("2_5if5o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tower"]
-position = Vector2(2, 7)
+position = Vector2(2.5, 10)
 shape = SubResource("CapsuleShape2D_5hile")
 
 [node name="Sprite2D" type="Sprite2D" parent="Tower"]
+position = Vector2(3, 19)
 texture = ExtResource("1_3y0x2")
+offset = Vector2(-3, -19)
 
 [node name="BoulderWeapon" type="Area2D" parent="Tower"]
 position = Vector2(5, 14)
@@ -1967,8 +1976,50 @@ position = Vector2(0, -3)
 scale = Vector2(1.5, 1)
 shape = SubResource("CircleShape2D_tvjgg")
 
+[node name="Fireball" type="Area2D" parent="Tower"]
+position = Vector2(5, 14)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tower/Fireball"]
+position = Vector2(0, -3)
+scale = Vector2(1.5, 1)
+shape = SubResource("CircleShape2D_alirf")
+
+[node name="Spawner" type="Node2D" parent="."]
+y_sort_enabled = true
+position = Vector2(19.5, 0)
+script = ExtResource("14_ul0js")
+
+[node name="Node2D" type="Node2D" parent="Spawner"]
+position = Vector2(310.5, 10.5)
+
+[node name="Node2D2" type="Node2D" parent="Spawner"]
+position = Vector2(106, 22)
+
+[node name="Node2D3" type="Node2D" parent="Spawner"]
+position = Vector2(12.5, 179)
+
+[node name="Node2D4" type="Node2D" parent="Spawner"]
+position = Vector2(33.5, 323.5)
+
+[node name="Node2D5" type="Node2D" parent="Spawner"]
+position = Vector2(309, 358.5)
+
+[node name="Node2D6" type="Node2D" parent="Spawner"]
+position = Vector2(531.5, 333)
+
+[node name="Node2D7" type="Node2D" parent="Spawner"]
+position = Vector2(558.5, 183)
+
+[node name="Node2D8" type="Node2D" parent="Spawner"]
+position = Vector2(499, 54.5)
+
+[node name="Node2D9" type="Node2D" parent="Spawner"]
+position = Vector2(412.5, 18.5)
+
 [node name="TileMap" type="TileMap" parent="."]
-position = Vector2(306, 162)
+position = Vector2(280.5, 162)
 tile_set = SubResource("TileSet_2j03o")
 format = 2
 layer_0/name = "Left/Rigth Wall"
@@ -1997,112 +2048,135 @@ metadata/_edit_lock_ = true
 
 [node name="Trees" type="Node2D" parent="."]
 y_sort_enabled = true
+position = Vector2(-25.5, 0)
 
 [node name="Pine" type="Sprite2D" parent="Trees"]
-position = Vector2(112, 10)
+position = Vector2(118, 63.5)
 texture = ExtResource("3_7v5e8")
+offset = Vector2(-6, -53.5)
 
 [node name="Pine7" type="Sprite2D" parent="Trees"]
-position = Vector2(280, -16)
+position = Vector2(285.5, 40)
 texture = ExtResource("3_7v5e8")
+offset = Vector2(-5.5, -56)
 
 [node name="Pine2" type="Sprite2D" parent="Trees"]
-position = Vector2(271, 325)
+position = Vector2(275.5, 379)
 texture = ExtResource("3_7v5e8")
+offset = Vector2(-4.5, -54)
 
 [node name="Pine8" type="Sprite2D" parent="Trees"]
-position = Vector2(97, 359)
+position = Vector2(103, 415)
 texture = ExtResource("3_7v5e8")
+offset = Vector2(-6, -56)
 
 [node name="Pine9" type="Sprite2D" parent="Trees"]
-position = Vector2(388, 394)
+position = Vector2(393.5, 450.5)
 texture = ExtResource("3_7v5e8")
+offset = Vector2(-5.5, -56.5)
 
 [node name="Pine3" type="Sprite2D" parent="Trees"]
-position = Vector2(497, 0)
+position = Vector2(503.5, 55)
 texture = ExtResource("3_7v5e8")
+offset = Vector2(-6.5, -55)
 
 [node name="Tree" type="Sprite2D" parent="Trees"]
-position = Vector2(158, 319)
+position = Vector2(157, 362.5)
 texture = ExtResource("4_1104t")
+offset = Vector2(1, -43.5)
 
 [node name="Tree3" type="Sprite2D" parent="Trees"]
-position = Vector2(558, 46)
+position = Vector2(557.5, 87.5)
 texture = ExtResource("4_1104t")
+offset = Vector2(0.5, -41.5)
 
 [node name="Pine4" type="Sprite2D" parent="Trees"]
-position = Vector2(59, 90)
+position = Vector2(64, 143)
 texture = ExtResource("3_7v5e8")
+offset = Vector2(-5, -53)
 
 [node name="Pine5" type="Sprite2D" parent="Trees"]
-position = Vector2(595, 158)
+position = Vector2(600, 216)
 texture = ExtResource("3_7v5e8")
+offset = Vector2(-5, -58)
 
-[node name="Pine6" type="Sprite2D" parent="Trees"]
-position = Vector2(21, 237)
-texture = ExtResource("3_7v5e8")
+[node name="Pine6" parent="Trees" instance=ExtResource("7_yfbcu")]
 
 [node name="Tree2" type="Sprite2D" parent="Trees"]
-position = Vector2(590, 257)
+position = Vector2(588.5, 300)
 texture = ExtResource("4_1104t")
+offset = Vector2(1.5, -43)
 
 [node name="LogA" type="Sprite2D" parent="Trees"]
-position = Vector2(88, 78)
+position = Vector2(78.5, 80)
 texture = ExtResource("5_oteew")
-
-[node name="LogA3" type="Sprite2D" parent="Trees"]
-z_index = -1
-position = Vector2(530, 65)
-texture = ExtResource("5_oteew")
+offset = Vector2(9.5, -2)
 
 [node name="LogA2" type="Sprite2D" parent="Trees"]
-position = Vector2(61, 306)
+position = Vector2(60.5, 309)
 texture = ExtResource("5_oteew")
+offset = Vector2(0.5, -3)
 
 [node name="LogA4" type="Sprite2D" parent="Trees"]
-position = Vector2(451, 369)
+position = Vector2(451, 371.5)
 texture = ExtResource("5_oteew")
+offset = Vector2(0, -2.5)
 
 [node name="PineC" type="Sprite2D" parent="Trees"]
-position = Vector2(24, 338)
+position = Vector2(34.5, 376.5)
 texture = ExtResource("6_sb3e4")
+offset = Vector2(-10.5, -38.5)
 
 [node name="PineC8" type="Sprite2D" parent="Trees"]
-position = Vector2(631, 23)
+position = Vector2(631, 68)
 texture = ExtResource("6_sb3e4")
+offset = Vector2(0, -45)
 
 [node name="PineC2" type="Sprite2D" parent="Trees"]
-position = Vector2(15, 117)
+position = Vector2(15.5, 164)
 texture = ExtResource("6_sb3e4")
+offset = Vector2(-0.5, -47)
 
 [node name="PineC7" type="Sprite2D" parent="Trees"]
-position = Vector2(212, -23)
+position = Vector2(212, 24.5)
 texture = ExtResource("6_sb3e4")
+offset = Vector2(0, -47.5)
 
 [node name="PineC6" type="Sprite2D" parent="Trees"]
-position = Vector2(499, 367)
+position = Vector2(500, 415)
 texture = ExtResource("6_sb3e4")
+offset = Vector2(-1, -48)
+
+[node name="PineC9" type="Sprite2D" parent="Trees"]
+position = Vector2(47, 205.5)
+texture = ExtResource("6_sb3e4")
+offset = Vector2(-1, -48)
 
 [node name="PineC4" type="Sprite2D" parent="Trees"]
-position = Vector2(66, 27)
+position = Vector2(64, 74)
 texture = ExtResource("6_sb3e4")
+offset = Vector2(2, -47)
 
 [node name="PineC3" type="Sprite2D" parent="Trees"]
-position = Vector2(625, 113)
+position = Vector2(626, 160.5)
 texture = ExtResource("6_sb3e4")
+offset = Vector2(-1, -47.5)
 
 [node name="PineC5" type="Sprite2D" parent="Trees"]
-position = Vector2(615, 302)
+position = Vector2(610.5, 330.5)
 texture = ExtResource("6_sb3e4")
+offset = Vector2(4.5, -28.5)
 
 [node name="RockA" type="Sprite2D" parent="Trees"]
-position = Vector2(591, 93)
+position = Vector2(594.5, 95)
 texture = ExtResource("7_u3cq5")
+offset = Vector2(-3.5, -2)
 
 [node name="RockA2" type="Sprite2D" parent="Trees"]
-position = Vector2(55, 342)
+position = Vector2(55.0004, 344.772)
 scale = Vector2(-1, 1)
 texture = ExtResource("7_u3cq5")
+offset = Vector2(0.000389099, -2.77182)
 
 [node name="RockA3" type="Sprite2D" parent="Trees"]
 position = Vector2(316, 361)
@@ -2110,81 +2184,133 @@ scale = Vector2(-1, 1)
 texture = ExtResource("7_u3cq5")
 
 [node name="Tree4" type="Sprite2D" parent="Trees"]
-position = Vector2(10, 60)
+position = Vector2(43, 76)
 texture = ExtResource("8_0wwx4")
+offset = Vector2(-33, -16)
 
 [node name="Tree5" type="Sprite2D" parent="Trees"]
-position = Vector2(574, 374)
+position = Vector2(575.5, 418.5)
 texture = ExtResource("8_0wwx4")
+offset = Vector2(-1.5, -44.5)
 
 [node name="Tree7" type="Sprite2D" parent="Trees"]
-position = Vector2(421, -25)
+position = Vector2(420, 17)
 texture = ExtResource("8_0wwx4")
+offset = Vector2(1, -42)
 
 [node name="Tree6" type="Sprite2D" parent="Trees"]
-position = Vector2(207, 385)
+position = Vector2(206.5, 428)
 texture = ExtResource("8_0wwx4")
+offset = Vector2(0.5, -43)
 
 [node name="PlantD" type="Sprite2D" parent="Trees"]
-position = Vector2(162, 19)
+position = Vector2(162, 23.5)
 texture = ExtResource("9_0vtjb")
+offset = Vector2(0, -4.5)
 
 [node name="Plant2" type="Sprite2D" parent="Trees"]
-position = Vector2(64, 209)
+position = Vector2(60.5, 220)
 texture = ExtResource("10_hr4tq")
+offset = Vector2(-0.5, -5)
 
 [node name="PlantA" type="Sprite2D" parent="Trees"]
-position = Vector2(91, 162)
+position = Vector2(91, 167)
 texture = ExtResource("11_5b8cs")
+offset = Vector2(0, -5)
 
 [node name="PlantC" type="Sprite2D" parent="Trees"]
-position = Vector2(78, 271)
+position = Vector2(78, 279)
 texture = ExtResource("12_m6ima")
+offset = Vector2(0, -8)
 
 [node name="PlantD2" type="Sprite2D" parent="Trees"]
-position = Vector2(45, 174)
+position = Vector2(45, 177.5)
 texture = ExtResource("9_0vtjb")
+offset = Vector2(0, -3.5)
 
 [node name="PlantD3" type="Sprite2D" parent="Trees"]
-position = Vector2(555, 289)
+position = Vector2(555.5, 293)
 texture = ExtResource("9_0vtjb")
+offset = Vector2(-0.5, -4)
 
 [node name="PlantA2" type="Sprite2D" parent="Trees"]
-position = Vector2(413, 345)
+position = Vector2(413, 349)
 texture = ExtResource("11_5b8cs")
+offset = Vector2(0, -4)
 
 [node name="Plant3" type="Sprite2D" parent="Trees"]
-position = Vector2(474, 336)
+position = Vector2(474, 340.5)
 texture = ExtResource("10_hr4tq")
+offset = Vector2(0, -4.5)
 
 [node name="PlantC2" type="Sprite2D" parent="Trees"]
-position = Vector2(524, 315)
+position = Vector2(524.5, 323)
 texture = ExtResource("12_m6ima")
+offset = Vector2(-0.5, -8)
 
 [node name="PlantD4" type="Sprite2D" parent="Trees"]
-position = Vector2(350, 363)
+position = Vector2(350, 367)
 texture = ExtResource("9_0vtjb")
+offset = Vector2(0, -4)
 
 [node name="Plant4" type="Sprite2D" parent="Trees"]
-position = Vector2(572, 114)
+position = Vector2(572, 118)
 texture = ExtResource("10_hr4tq")
+offset = Vector2(0, -4)
 
 [node name="Plant5" type="Sprite2D" parent="Trees"]
-position = Vector2(515, 92)
+position = Vector2(508, 94)
 texture = ExtResource("10_hr4tq")
+offset = Vector2(7, -2)
 
 [node name="PlantA3" type="Sprite2D" parent="Trees"]
-position = Vector2(438, 38)
+position = Vector2(439, 42.5)
 texture = ExtResource("11_5b8cs")
+offset = Vector2(-1, -4.5)
 
 [node name="PlantD5" type="Sprite2D" parent="Trees"]
-position = Vector2(397, 31)
+position = Vector2(397, 35.5)
 texture = ExtResource("9_0vtjb")
+offset = Vector2(0, -4.5)
 
 [node name="PlantC3" type="Sprite2D" parent="Trees"]
-position = Vector2(243, 29)
+position = Vector2(243, 37.5)
 texture = ExtResource("12_m6ima")
+offset = Vector2(0, -8.5)
 
 [node name="RockA4" type="Sprite2D" parent="Trees"]
-position = Vector2(386, 3)
+position = Vector2(386, 7.5)
 texture = ExtResource("7_u3cq5")
+offset = Vector2(0, -4.5)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(611, 105)
+texture = ExtResource("16_dtlns")
+
+[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(611, 253)
+texture = ExtResource("16_dtlns")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.235
+anchor_top = 0.476
+anchor_right = 0.235
+anchor_bottom = 0.476
+offset_left = -78.3
+offset_top = -11.22
+offset_right = 78.7
+offset_bottom = 11.78
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+texture = ExtResource("17_1lhwi")
+region_rect = Rect2(0, 0, 71, 20)
+patch_margin_left = 15
+patch_margin_top = 8
+patch_margin_right = 14
+patch_margin_bottom = 9

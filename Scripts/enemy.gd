@@ -5,14 +5,22 @@ enum EnemyType {MAGIC, PHYSICAL}
 var type : EnemyType
 var speed : float
 var health : float
+var maxHealth : float
 var attack : float
 var attackFrame : int = 3
 var damagedTimer : float = 0.0
 
+@onready var animatedSprite2D = $AnimatedSprite2D
+@onready var spreadOutShape = $"Spread Out Shape"
+@onready var hpBarForeground = $HPBarForeground
+@onready var hpBarBackground = $HPBarBackground
+const floatingNumberScene = preload("res://Scenes/floating_number.tscn")
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	modulate.a = 0
-	speed = 50
+	maxHealth = health
 	tower = get_tree().get_first_node_in_group("Tower")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -22,42 +30,55 @@ func _physics_process(delta):
 #		modulate = Color(100, 100, 100, 1)
 #	else:
 #		modulate = Color(1, 1, 1, modulate.a)
+
+	var bgScale = hpBarBackground.scale.x;
+	var fgScale = hpBarForeground.scale.x;
+	hpBarForeground.scale.x = (health / maxHealth) * hpBarBackground.scale.x
+		
 	
-	if ($AnimatedSprite2D.get_animation() == "Walking"):
+	if (animatedSprite2D.get_animation() == "Walking"):
 		modulate.a = min(1, modulate.a + delta)
 		velocity = (tower.global_position - global_position).normalized() * speed
 		if velocity.x > 0:
-			$AnimatedSprite2D.flip_h = true
+			animatedSprite2D.flip_h = true
 		else:
-			$AnimatedSprite2D.flip_h = false
+			animatedSprite2D.flip_h = false
 
 		move_and_slide()
 	
 func inflict_damage(amount, targetType : Enemy.EnemyType):
-	if type == targetType:
-		health -= amount
-	else:
-		health -= amount / 2
+	var damage = amount;
+	if type != targetType:
+		damage = damage / 2
+		
+	health -= damage;
+	
+	var damageNumber = floatingNumberScene.instantiate()
+	damageNumber.global_position = global_position + Vector2(0, -20)
+	damageNumber.get_node("Label").text = str(damage)
+	get_tree().root.add_child(damageNumber)
 		
 	if health <= 0:
-		$"Spread Out Shape".set_deferred("disabled", true)
-		$AnimatedSprite2D.play("Death")
+		spreadOutShape.set_deferred("disabled", true)
+		animatedSprite2D.play("Death")
+		hpBarBackground.visible = false;
+		hpBarForeground.visible = false;
 		
 	damagedTimer = 0.1
 
 func _on_area_2d_body_entered(body):
 	if body is Tower:
-		$AnimatedSprite2D.play("Attack")
+		animatedSprite2D.play("Attack")
 
 func _on_area_2d_body_exited(body):
 	if body is Tower:
-		$AnimatedSprite2D.play("Walking")
+		animatedSprite2D.play("Walking")
 
 func _on_animated_sprite_2d_frame_changed():
-	if ($AnimatedSprite2D.get_animation() == "Attack" and
-		$AnimatedSprite2D.frame == attackFrame):
+	if (animatedSprite2D.get_animation() == "Attack" and
+		animatedSprite2D.frame == attackFrame):
 		print("attacking tower")
 
 func _on_animated_sprite_2d_animation_finished():
-	if ($AnimatedSprite2D.get_animation() == "Death"):
+	if (animatedSprite2D.get_animation() == "Death"):
 		queue_free()
