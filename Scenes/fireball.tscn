@@ -95,7 +95,7 @@ local_coords = true
 position = Vector2(1, 1)
 sprite_frames = SubResource("SpriteFrames_7fbb6")
 autoplay = "default"
-frame_progress = 0.173048
+frame_progress = 0.580061
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 1)
