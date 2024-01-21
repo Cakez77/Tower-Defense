@@ -24,9 +24,9 @@ var attackTimer : float = 0.0
 		"impactScene" = preload("res://Scenes/boulder_impact.tscn"),
 		"instance" = null,
 		"targetType" = Enemy.EnemyType.PHYSICAL,
-		"upgradeText" = \
+		"description" = \
 			"Throws a big Boulder towards an Enemy. Priorityzes Armoured enemies.",
-		"upgradeIcon" = preload("res://Assets/Sprites/boulder.png"),
+		"upgradeIcon" = preload("res://Assets/Sprites/boulder_icon.png"),
 		"upgrades" = [
 			{
 				"damage" = 100,
@@ -54,7 +54,7 @@ var attackTimer : float = 0.0
 		"impactScene" = preload("res://Scenes/fireball_impact.tscn"),
 		"instance" = null,
 		"targetType" = Enemy.EnemyType.MAGIC,
-		"upgradeText" = \
+		"description" = \
 			"Hurls a ball of fire towards an Enemy. Priorityzes Magic enemies.",	
 		"upgradeIcon" = preload("res://Assets/Sprites/fireball_icon.png"),
 		"upgrades" = [
@@ -99,11 +99,14 @@ func _reroll():
 		idxCount += 1
 	
 	for i in weaponUpgradeButtons.size():
-		var textureButton : TextureButton = weaponUpgradeButtons[i]
+		var textureButton = weaponUpgradeButtons[i]
 		textureButton.texture_normal = null
+		textureButton.description = ""
 		var weaponIdx = weaponIndices[i]
 		if weaponIdx >= 0:
 			textureButton.texture_normal = weapons[weaponIdx].upgradeIcon
+			var script = textureButton.get_script()
+			textureButton.description = weapons[weaponIdx].description
 
 	
 # We know that we are comparing Enemies here, which is why it works

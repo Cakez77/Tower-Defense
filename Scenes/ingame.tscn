@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://py4uv3p0k2bi"]
+[gd_scene load_steps=28 format=3 uid="uid://py4uv3p0k2bi"]
 
 [ext_resource type="Texture2D" uid="uid://dehn8hura3ccs" path="res://Assets/Sprites/lighthouse.png" id="1_3y0x2"]
 [ext_resource type="Script" path="res://Scripts/Tower.gd" id="2_5if5o"]
@@ -16,7 +16,10 @@
 [ext_resource type="Texture2D" uid="uid://d1os4uklnpcfx" path="res://Assets/Sprites/PlantC.png" id="12_m6ima"]
 [ext_resource type="Script" path="res://Scripts/Spawner.gd" id="14_ul0js"]
 [ext_resource type="Texture2D" uid="uid://dhfnwspu3tflt" path="res://Assets/Sprites/upgrade_slots.png" id="16_dtlns"]
+[ext_resource type="FontFile" uid="uid://cnpuh5a6v3hth" path="res://Assets/Fonts/font_5_7.ttf" id="16_huy6m"]
+[ext_resource type="Texture2D" uid="uid://wns2ahs561r4" path="res://Assets/Sprites/hover_panel.png" id="16_og1ay"]
 [ext_resource type="Texture2D" uid="uid://cifqoq8kssprl" path="res://Assets/Sprites/hp_bar.png" id="17_1lhwi"]
+[ext_resource type="Script" path="res://Scripts/button.gd" id="17_rg4w7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5hile"]
 radius = 12.5
@@ -1954,7 +1957,7 @@ scale = Vector2(2, 2)
 
 [node name="Tower" type="StaticBody2D" parent="." groups=["Tower"]]
 y_sort_enabled = true
-position = Vector2(295.5, 173)
+position = Vector2(313, 173)
 script = ExtResource("2_5if5o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tower"]
@@ -1992,11 +1995,11 @@ autostart = true
 
 [node name="Spawner" type="Node2D" parent="."]
 y_sort_enabled = true
-position = Vector2(19.5, 0)
+position = Vector2(37, 0)
 script = ExtResource("14_ul0js")
 
 [node name="TileMap" type="TileMap" parent="."]
-position = Vector2(280.5, 162)
+position = Vector2(298, 162)
 tile_set = SubResource("TileSet_2j03o")
 format = 2
 layer_0/name = "Left/Rigth Wall"
@@ -2010,8 +2013,8 @@ layer_2/tile_data = PackedInt32Array(-131073, 2424832, 1, -65537, 2424832, 1, -1
 metadata/_edit_group_ = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+position = Vector2(-0.5, -1.5)
 color = Color(0.305882, 0.305882, 0.305882, 1)
-metadata/_edit_lock_ = true
 
 [node name="PointLight2D" type="PointLight2D" parent="CanvasModulate"]
 texture_filter = 2
@@ -2021,328 +2024,395 @@ scale = Vector2(1.00469, 1.03611)
 color = Color(0.941176, 0.682353, 0.498039, 1)
 energy = 2.87
 texture = SubResource("GradientTexture2D_o67j5")
-metadata/_edit_lock_ = true
 
 [node name="Trees" type="Node2D" parent="."]
 y_sort_enabled = true
-position = Vector2(-25.5, 0)
-metadata/_edit_lock_ = true
+position = Vector2(-8, 0)
 
 [node name="Pine" type="Sprite2D" parent="Trees"]
 position = Vector2(118, 63.5)
 texture = ExtResource("3_7v5e8")
 offset = Vector2(-6, -53.5)
-metadata/_edit_lock_ = true
 
 [node name="Pine7" type="Sprite2D" parent="Trees"]
 position = Vector2(285.5, 40)
 texture = ExtResource("3_7v5e8")
 offset = Vector2(-5.5, -56)
-metadata/_edit_lock_ = true
 
 [node name="Pine2" type="Sprite2D" parent="Trees"]
 position = Vector2(275.5, 379)
 texture = ExtResource("3_7v5e8")
 offset = Vector2(-4.5, -54)
-metadata/_edit_lock_ = true
 
 [node name="Pine8" type="Sprite2D" parent="Trees"]
 position = Vector2(103, 415)
 texture = ExtResource("3_7v5e8")
 offset = Vector2(-6, -56)
-metadata/_edit_lock_ = true
 
 [node name="Pine9" type="Sprite2D" parent="Trees"]
 position = Vector2(393.5, 450.5)
 texture = ExtResource("3_7v5e8")
 offset = Vector2(-5.5, -56.5)
-metadata/_edit_lock_ = true
 
 [node name="Pine3" type="Sprite2D" parent="Trees"]
 position = Vector2(503.5, 55)
 texture = ExtResource("3_7v5e8")
 offset = Vector2(-6.5, -55)
-metadata/_edit_lock_ = true
 
 [node name="Tree" type="Sprite2D" parent="Trees"]
 position = Vector2(157, 362.5)
 texture = ExtResource("4_1104t")
 offset = Vector2(1, -43.5)
-metadata/_edit_lock_ = true
 
 [node name="Tree3" type="Sprite2D" parent="Trees"]
 position = Vector2(557.5, 87.5)
 texture = ExtResource("4_1104t")
 offset = Vector2(0.5, -41.5)
-metadata/_edit_lock_ = true
 
 [node name="Pine4" type="Sprite2D" parent="Trees"]
 position = Vector2(64, 143)
 texture = ExtResource("3_7v5e8")
 offset = Vector2(-5, -53)
-metadata/_edit_lock_ = true
 
 [node name="Pine5" type="Sprite2D" parent="Trees"]
 position = Vector2(600, 216)
 texture = ExtResource("3_7v5e8")
 offset = Vector2(-5, -58)
-metadata/_edit_lock_ = true
 
 [node name="Pine6" parent="Trees" instance=ExtResource("7_yfbcu")]
-metadata/_edit_lock_ = true
 
 [node name="Tree2" type="Sprite2D" parent="Trees"]
 position = Vector2(588.5, 300)
 texture = ExtResource("4_1104t")
 offset = Vector2(1.5, -43)
-metadata/_edit_lock_ = true
 
 [node name="LogA" type="Sprite2D" parent="Trees"]
 position = Vector2(78.5, 80)
 texture = ExtResource("5_oteew")
 offset = Vector2(9.5, -2)
-metadata/_edit_lock_ = true
 
 [node name="LogA2" type="Sprite2D" parent="Trees"]
 position = Vector2(60.5, 309)
 texture = ExtResource("5_oteew")
 offset = Vector2(0.5, -3)
-metadata/_edit_lock_ = true
 
 [node name="LogA4" type="Sprite2D" parent="Trees"]
 position = Vector2(451, 371.5)
 texture = ExtResource("5_oteew")
 offset = Vector2(0, -2.5)
-metadata/_edit_lock_ = true
 
 [node name="PineC" type="Sprite2D" parent="Trees"]
 position = Vector2(34.5, 376.5)
 texture = ExtResource("6_sb3e4")
 offset = Vector2(-10.5, -38.5)
-metadata/_edit_lock_ = true
 
 [node name="PineC8" type="Sprite2D" parent="Trees"]
 position = Vector2(631, 68)
 texture = ExtResource("6_sb3e4")
 offset = Vector2(0, -45)
-metadata/_edit_lock_ = true
 
 [node name="PineC2" type="Sprite2D" parent="Trees"]
 position = Vector2(15.5, 164)
 texture = ExtResource("6_sb3e4")
 offset = Vector2(-0.5, -47)
-metadata/_edit_lock_ = true
 
 [node name="PineC7" type="Sprite2D" parent="Trees"]
 position = Vector2(212, 24.5)
 texture = ExtResource("6_sb3e4")
 offset = Vector2(0, -47.5)
-metadata/_edit_lock_ = true
 
 [node name="PineC6" type="Sprite2D" parent="Trees"]
 position = Vector2(500, 415)
 texture = ExtResource("6_sb3e4")
 offset = Vector2(-1, -48)
-metadata/_edit_lock_ = true
 
 [node name="PineC9" type="Sprite2D" parent="Trees"]
 position = Vector2(47, 205.5)
 texture = ExtResource("6_sb3e4")
 offset = Vector2(-1, -48)
-metadata/_edit_lock_ = true
 
 [node name="PineC4" type="Sprite2D" parent="Trees"]
 position = Vector2(64, 74)
 texture = ExtResource("6_sb3e4")
 offset = Vector2(2, -47)
-metadata/_edit_lock_ = true
 
 [node name="PineC3" type="Sprite2D" parent="Trees"]
 position = Vector2(626, 160.5)
 texture = ExtResource("6_sb3e4")
 offset = Vector2(-1, -47.5)
-metadata/_edit_lock_ = true
 
 [node name="PineC5" type="Sprite2D" parent="Trees"]
 position = Vector2(610.5, 330.5)
 texture = ExtResource("6_sb3e4")
 offset = Vector2(4.5, -28.5)
-metadata/_edit_lock_ = true
 
 [node name="RockA" type="Sprite2D" parent="Trees"]
 position = Vector2(594.5, 95)
 texture = ExtResource("7_u3cq5")
 offset = Vector2(-3.5, -2)
-metadata/_edit_lock_ = true
 
 [node name="RockA2" type="Sprite2D" parent="Trees"]
 position = Vector2(55.0004, 344.772)
 scale = Vector2(-1, 1)
 texture = ExtResource("7_u3cq5")
 offset = Vector2(0.000389099, -2.77182)
-metadata/_edit_lock_ = true
 
 [node name="RockA3" type="Sprite2D" parent="Trees"]
 position = Vector2(316, 361)
 scale = Vector2(-1, 1)
 texture = ExtResource("7_u3cq5")
-metadata/_edit_lock_ = true
 
 [node name="Tree4" type="Sprite2D" parent="Trees"]
 position = Vector2(43, 76)
 texture = ExtResource("8_0wwx4")
 offset = Vector2(-33, -16)
-metadata/_edit_lock_ = true
 
 [node name="Tree5" type="Sprite2D" parent="Trees"]
 position = Vector2(575.5, 418.5)
 texture = ExtResource("8_0wwx4")
 offset = Vector2(-1.5, -44.5)
-metadata/_edit_lock_ = true
 
 [node name="Tree7" type="Sprite2D" parent="Trees"]
 position = Vector2(420, 17)
 texture = ExtResource("8_0wwx4")
 offset = Vector2(1, -42)
-metadata/_edit_lock_ = true
 
 [node name="Tree6" type="Sprite2D" parent="Trees"]
 position = Vector2(206.5, 428)
 texture = ExtResource("8_0wwx4")
 offset = Vector2(0.5, -43)
-metadata/_edit_lock_ = true
 
 [node name="PlantD" type="Sprite2D" parent="Trees"]
 position = Vector2(162, 23.5)
 texture = ExtResource("9_0vtjb")
 offset = Vector2(0, -4.5)
-metadata/_edit_lock_ = true
 
 [node name="Plant2" type="Sprite2D" parent="Trees"]
 position = Vector2(60.5, 220)
 texture = ExtResource("10_hr4tq")
 offset = Vector2(-0.5, -5)
-metadata/_edit_lock_ = true
 
 [node name="PlantA" type="Sprite2D" parent="Trees"]
 position = Vector2(91, 167)
 texture = ExtResource("11_5b8cs")
 offset = Vector2(0, -5)
-metadata/_edit_lock_ = true
 
 [node name="PlantC" type="Sprite2D" parent="Trees"]
 position = Vector2(78, 279)
 texture = ExtResource("12_m6ima")
 offset = Vector2(0, -8)
-metadata/_edit_lock_ = true
 
 [node name="PlantD2" type="Sprite2D" parent="Trees"]
 position = Vector2(45, 177.5)
 texture = ExtResource("9_0vtjb")
 offset = Vector2(0, -3.5)
-metadata/_edit_lock_ = true
 
 [node name="PlantD3" type="Sprite2D" parent="Trees"]
 position = Vector2(555.5, 293)
 texture = ExtResource("9_0vtjb")
 offset = Vector2(-0.5, -4)
-metadata/_edit_lock_ = true
 
 [node name="PlantA2" type="Sprite2D" parent="Trees"]
 position = Vector2(413, 349)
 texture = ExtResource("11_5b8cs")
 offset = Vector2(0, -4)
-metadata/_edit_lock_ = true
 
 [node name="Plant3" type="Sprite2D" parent="Trees"]
 position = Vector2(474, 340.5)
 texture = ExtResource("10_hr4tq")
 offset = Vector2(0, -4.5)
-metadata/_edit_lock_ = true
 
 [node name="PlantC2" type="Sprite2D" parent="Trees"]
 position = Vector2(524.5, 323)
 texture = ExtResource("12_m6ima")
 offset = Vector2(-0.5, -8)
-metadata/_edit_lock_ = true
 
 [node name="PlantD4" type="Sprite2D" parent="Trees"]
 position = Vector2(350, 367)
 texture = ExtResource("9_0vtjb")
 offset = Vector2(0, -4)
-metadata/_edit_lock_ = true
 
 [node name="Plant4" type="Sprite2D" parent="Trees"]
 position = Vector2(572, 118)
 texture = ExtResource("10_hr4tq")
 offset = Vector2(0, -4)
-metadata/_edit_lock_ = true
 
 [node name="Plant5" type="Sprite2D" parent="Trees"]
 position = Vector2(508, 94)
 texture = ExtResource("10_hr4tq")
 offset = Vector2(7, -2)
-metadata/_edit_lock_ = true
 
 [node name="PlantA3" type="Sprite2D" parent="Trees"]
 position = Vector2(439, 42.5)
 texture = ExtResource("11_5b8cs")
 offset = Vector2(-1, -4.5)
-metadata/_edit_lock_ = true
 
 [node name="PlantD5" type="Sprite2D" parent="Trees"]
 position = Vector2(397, 35.5)
 texture = ExtResource("9_0vtjb")
 offset = Vector2(0, -4.5)
-metadata/_edit_lock_ = true
 
 [node name="PlantC3" type="Sprite2D" parent="Trees"]
 position = Vector2(243, 37.5)
 texture = ExtResource("12_m6ima")
 offset = Vector2(0, -8.5)
-metadata/_edit_lock_ = true
 
 [node name="RockA4" type="Sprite2D" parent="Trees"]
 position = Vector2(386, 7.5)
 texture = ExtResource("7_u3cq5")
 offset = Vector2(0, -4.5)
-metadata/_edit_lock_ = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 scale = Vector2(2, 2)
 transform = Transform2D(2, 0, 0, 2, 0, 0)
 
+[node name="UpgradeHoverInfo" type="Node2D" parent="CanvasLayer"]
+position = Vector2(558.5, 296)
+rotation = -1.57079
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/UpgradeHoverInfo"]
+modulate = Color(1, 1, 1, 0.509804)
+offset_left = 24.0
+offset_top = -74.0
+offset_right = 106.0
+offset_bottom = 74.0
+texture = ExtResource("16_og1ay")
+patch_margin_left = 15
+patch_margin_top = 16
+patch_margin_right = 15
+patch_margin_bottom = 16
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="CanvasLayer/UpgradeHoverInfo"]
+offset_left = 101.0
+offset_top = -69.0
+offset_right = 238.0
+offset_bottom = -56.0
+rotation = 1.57079
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("16_huy6m")
+fit_content = true
+
 [node name="WeaponUpgrades" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(611, 105)
+position = Vector2(558.5, 296)
+rotation = -1.57079
 texture = ExtResource("16_dtlns")
 
 [node name="TextureButton0" type="TextureButton" parent="CanvasLayer/WeaponUpgrades"]
-offset_left = -17.0
-offset_top = -71.0
-offset_right = 17.0
-offset_bottom = -37.0
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.135
+anchor_right = 0.5
+anchor_bottom = 0.135
+offset_left = -38.0
+offset_top = -89.98
+offset_right = -6.0
+offset_bottom = -57.98
+rotation = 1.57079
+pivot_offset = Vector2(17, 17)
+script = ExtResource("17_rg4w7")
 
 [node name="TextureButton1" type="TextureButton" parent="CanvasLayer/WeaponUpgrades"]
-offset_left = -17.0
-offset_top = -35.0
-offset_right = 17.0
-offset_bottom = -1.0
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.135
+anchor_right = 0.5
+anchor_bottom = 0.135
+offset_left = -37.9998
+offset_top = -53.98
+offset_right = -5.99976
+offset_bottom = -21.98
+rotation = 1.57079
+pivot_offset = Vector2(17, 17)
+script = ExtResource("17_rg4w7")
 
 [node name="TextureButton2" type="TextureButton" parent="CanvasLayer/WeaponUpgrades"]
-offset_left = -17.0
-offset_top = 1.0
-offset_right = 17.0
-offset_bottom = 35.0
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.135
+anchor_right = 0.5
+anchor_bottom = 0.135
+offset_left = -37.9994
+offset_top = -17.98
+offset_right = -5.99939
+offset_bottom = 14.02
+rotation = 1.57079
+pivot_offset = Vector2(17, 17)
+script = ExtResource("17_rg4w7")
 
 [node name="TextureButton3" type="TextureButton" parent="CanvasLayer/WeaponUpgrades"]
-offset_left = -17.0
-offset_top = 37.0
-offset_right = 17.0
-offset_bottom = 71.0
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.135
+anchor_right = 0.5
+anchor_bottom = 0.135
+offset_left = -37.9991
+offset_top = 18.02
+offset_right = -5.99915
+offset_bottom = 50.02
+rotation = 1.57079
+pivot_offset = Vector2(17, 17)
+script = ExtResource("17_rg4w7")
 
-[node name="Sprite2D2" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(611, 253)
+[node name="Tower Upgrades" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(558.5, 335)
+rotation = -1.57079
 texture = ExtResource("16_dtlns")
+
+[node name="TextureButton4" type="TextureButton" parent="CanvasLayer/Tower Upgrades"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.135
+anchor_right = 0.5
+anchor_bottom = 0.135
+offset_left = -38.0005
+offset_top = -89.9799
+offset_right = -6.00045
+offset_bottom = -57.9799
+rotation = 1.57079
+pivot_offset = Vector2(17, 17)
+script = ExtResource("17_rg4w7")
+
+[node name="TextureButton5" type="TextureButton" parent="CanvasLayer/Tower Upgrades"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.378
+anchor_right = 0.5
+anchor_bottom = 0.378
+offset_left = -38.0002
+offset_top = -89.9439
+offset_right = -6.00021
+offset_bottom = -57.9439
+rotation = 1.57079
+pivot_offset = Vector2(17, 17)
+script = ExtResource("17_rg4w7")
+
+[node name="TextureButton6" type="TextureButton" parent="CanvasLayer/Tower Upgrades"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.622
+anchor_right = 0.5
+anchor_bottom = 0.622
+offset_left = -38.0005
+offset_top = -90.0559
+offset_right = -6.00049
+offset_bottom = -58.0559
+rotation = 1.57079
+pivot_offset = Vector2(17, 17)
+script = ExtResource("17_rg4w7")
+
+[node name="TextureButton7" type="TextureButton" parent="CanvasLayer/Tower Upgrades"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.865
+anchor_right = 0.5
+anchor_bottom = 0.865
+offset_left = -37.9997
+offset_top = -90.0199
+offset_right = -5.99975
+offset_bottom = -58.0199
+rotation = 1.57079
+pivot_offset = Vector2(17, 17)
+script = ExtResource("17_rg4w7")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer"]
 anchors_preset = -1
@@ -2365,7 +2435,23 @@ patch_margin_right = 14
 patch_margin_bottom = 9
 
 [connection signal="timeout" from="Tower/RerollTimer" to="Tower" method="_on_reroll_timer_timeout"]
+[connection signal="button_down" from="CanvasLayer/WeaponUpgrades/TextureButton0" to="CanvasLayer/WeaponUpgrades/TextureButton0" method="_on_button_down"]
+[connection signal="button_up" from="CanvasLayer/WeaponUpgrades/TextureButton0" to="CanvasLayer/WeaponUpgrades/TextureButton0" method="_on_button_up"]
+[connection signal="mouse_entered" from="CanvasLayer/WeaponUpgrades/TextureButton0" to="CanvasLayer/WeaponUpgrades/TextureButton0" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/WeaponUpgrades/TextureButton0" to="CanvasLayer/WeaponUpgrades/TextureButton0" method="_on_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/WeaponUpgrades/TextureButton0" to="Tower" method="_on_texture_button_0_pressed"]
+[connection signal="button_down" from="CanvasLayer/WeaponUpgrades/TextureButton1" to="CanvasLayer/WeaponUpgrades/TextureButton1" method="_on_button_down"]
+[connection signal="button_up" from="CanvasLayer/WeaponUpgrades/TextureButton1" to="CanvasLayer/WeaponUpgrades/TextureButton1" method="_on_button_up"]
+[connection signal="mouse_entered" from="CanvasLayer/WeaponUpgrades/TextureButton1" to="CanvasLayer/WeaponUpgrades/TextureButton1" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/WeaponUpgrades/TextureButton1" to="CanvasLayer/WeaponUpgrades/TextureButton1" method="_on_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/WeaponUpgrades/TextureButton1" to="Tower" method="_on_texture_button_1_pressed"]
+[connection signal="button_down" from="CanvasLayer/WeaponUpgrades/TextureButton2" to="CanvasLayer/WeaponUpgrades/TextureButton2" method="_on_button_down"]
+[connection signal="button_up" from="CanvasLayer/WeaponUpgrades/TextureButton2" to="CanvasLayer/WeaponUpgrades/TextureButton2" method="_on_button_up"]
+[connection signal="mouse_entered" from="CanvasLayer/WeaponUpgrades/TextureButton2" to="CanvasLayer/WeaponUpgrades/TextureButton2" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/WeaponUpgrades/TextureButton2" to="CanvasLayer/WeaponUpgrades/TextureButton2" method="_on_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/WeaponUpgrades/TextureButton2" to="Tower" method="_on_texture_button_2_pressed"]
+[connection signal="button_down" from="CanvasLayer/WeaponUpgrades/TextureButton3" to="CanvasLayer/WeaponUpgrades/TextureButton3" method="_on_button_down"]
+[connection signal="button_up" from="CanvasLayer/WeaponUpgrades/TextureButton3" to="CanvasLayer/WeaponUpgrades/TextureButton3" method="_on_button_up"]
+[connection signal="mouse_entered" from="CanvasLayer/WeaponUpgrades/TextureButton3" to="CanvasLayer/WeaponUpgrades/TextureButton3" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/WeaponUpgrades/TextureButton3" to="CanvasLayer/WeaponUpgrades/TextureButton3" method="_on_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/WeaponUpgrades/TextureButton3" to="Tower" method="_on_texture_button_3_pressed"]
