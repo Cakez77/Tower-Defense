@@ -15,6 +15,7 @@ var damagedTimer : float = 0.0
 @onready var hpBarForeground = $HPBarForeground
 @onready var hpBarBackground = $HPBarBackground
 const floatingNumberScene = preload("res://Scenes/floating_number.tscn")
+const floatingGoldScene = preload("res://Scenes/floating_gold.tscn")
 
 
 # Called when the node enters the scene tree for the first time.
@@ -63,6 +64,16 @@ func inflict_damage(amount, targetType : Enemy.EnemyType):
 		animatedSprite2D.play("Death")
 		hpBarBackground.visible = false;
 		hpBarForeground.visible = false;
+		
+		# Gold is (health + speed + attack) * 0.05
+		var gold : float = (maxHealth + speed + attack) * 0.05
+		var floatingGold = floatingGoldScene.instantiate()
+		floatingGold.get_node("RichTextLabel").text = \
+			"[img]res://Assets/Sprites/coin_small.png[/img] %d" % gold
+		floatingGold.global_position = global_position + Vector2(0, -20)
+		get_tree().root.add_child(floatingGold)
+		tower.gold += gold
+		
 		
 	damagedTimer = 0.1
 

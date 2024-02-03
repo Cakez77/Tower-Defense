@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://py4uv3p0k2bi"]
+[gd_scene load_steps=31 format=3 uid="uid://py4uv3p0k2bi"]
 
 [ext_resource type="Texture2D" uid="uid://dehn8hura3ccs" path="res://Assets/Sprites/lighthouse.png" id="1_3y0x2"]
 [ext_resource type="Script" path="res://Scripts/Tower.gd" id="2_5if5o"]
@@ -15,7 +15,6 @@
 [ext_resource type="Texture2D" uid="uid://c3cg1afp3kdwr" path="res://Assets/Sprites/PlantA.png" id="11_5b8cs"]
 [ext_resource type="Texture2D" uid="uid://d1os4uklnpcfx" path="res://Assets/Sprites/PlantC.png" id="12_m6ima"]
 [ext_resource type="Script" path="res://Scripts/Spawner.gd" id="14_ul0js"]
-[ext_resource type="Script" path="res://Scripts/CanvasLayer.gd" id="16_8k0mp"]
 [ext_resource type="Texture2D" uid="uid://dhfnwspu3tflt" path="res://Assets/Sprites/upgrade_slots.png" id="16_dtlns"]
 [ext_resource type="FontFile" uid="uid://cnpuh5a6v3hth" path="res://Assets/Fonts/font_5_7.ttf" id="16_huy6m"]
 [ext_resource type="Texture2D" uid="uid://bryms8lqf7d01" path="res://Assets/Sprites/coin.png" id="16_mmvny"]
@@ -1955,12 +1954,6 @@ fill = 1
 fill_from = Vector2(0.495413, 0.504587)
 fill_to = Vector2(0.720183, 0.00815494)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ixqrk"]
-bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q8oed"]
-bg_color = Color(0, 0.623529, 0.996078, 1)
-
 [node name="Main Node" type="Node2D"]
 y_sort_enabled = true
 scale = Vector2(2, 2)
@@ -1998,6 +1991,10 @@ collision_mask = 4
 position = Vector2(0, -3)
 scale = Vector2(1.5, 1)
 shape = SubResource("CircleShape2D_alirf")
+
+[node name="RerollTimer" type="Timer" parent="Tower"]
+wait_time = 5.0
+autostart = true
 
 [node name="Spawner" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -2271,29 +2268,6 @@ offset = Vector2(0, -4.5)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 scale = Vector2(2, 2)
 transform = Transform2D(2, 0, 0, 2, 0, 0)
-script = ExtResource("16_8k0mp")
-
-[node name="RerollProgressBar" type="ProgressBar" parent="CanvasLayer"]
-offset_left = 247.0
-offset_top = 344.0
-offset_right = 386.0
-offset_bottom = 354.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_styles/background = SubResource("StyleBoxFlat_ixqrk")
-theme_override_styles/fill = SubResource("StyleBoxFlat_q8oed")
-value = 40.35
-show_percentage = false
-
-[node name="Label" type="Label" parent="CanvasLayer/RerollProgressBar"]
-layout_mode = 0
-offset_left = 36.0
-offset_top = -2.5
-offset_right = 108.0
-offset_bottom = 20.5
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-theme_override_fonts/font = ExtResource("16_huy6m")
-text = "New Upgrades"
 
 [node name="RerollButton" type="TextureButton" parent="CanvasLayer"]
 offset_left = 449.0
@@ -2303,6 +2277,22 @@ offset_bottom = 351.0
 pivot_offset = Vector2(16.5, 15.5)
 texture_normal = ExtResource("22_u3ith")
 script = ExtResource("23_ua5ui")
+
+[node name="Gold" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(16, 19)
+texture = ExtResource("16_mmvny")
+
+[node name="GoldLabel" type="RichTextLabel" parent="CanvasLayer"]
+offset_left = 18.5
+offset_top = 3.5
+offset_right = 144.5
+offset_bottom = 30.5
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/normal_font = ExtResource("16_huy6m")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = " test"
 
 [node name="UpgradeHoverInfo" type="Control" parent="CanvasLayer"]
 visible = false
@@ -2379,22 +2369,6 @@ theme_override_fonts/normal_font = ExtResource("16_huy6m")
 bbcode_enabled = true
 text = "Attack Cooldown: "
 fit_content = true
-
-[node name="Gold" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(16, 19)
-texture = ExtResource("16_mmvny")
-
-[node name="GoldLabel" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 18.5
-offset_top = 3.5
-offset_right = 144.5
-offset_bottom = 30.5
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 3
-theme_override_fonts/normal_font = ExtResource("16_huy6m")
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = " test"
 
 [node name="WeaponUpgrades" type="Sprite2D" parent="CanvasLayer"]
 position = Vector2(558.5, 296)
@@ -2524,10 +2498,10 @@ anchor_left = 0.247
 anchor_top = 0.478
 anchor_right = 0.247
 anchor_bottom = 0.478
-offset_left = -78.16
-offset_top = -24.16
-offset_right = 78.84
-offset_bottom = -3.16
+offset_left = -78.66
+offset_top = -10.16
+offset_right = 78.34
+offset_bottom = 10.84
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -2538,6 +2512,7 @@ patch_margin_top = 8
 patch_margin_right = 14
 patch_margin_bottom = 9
 
+[connection signal="timeout" from="Tower/RerollTimer" to="Tower" method="_on_reroll_timer_timeout"]
 [connection signal="button_down" from="CanvasLayer/RerollButton" to="CanvasLayer/RerollButton" method="_on_button_down"]
 [connection signal="button_up" from="CanvasLayer/RerollButton" to="CanvasLayer/RerollButton" method="_on_button_up"]
 [connection signal="mouse_entered" from="CanvasLayer/RerollButton" to="CanvasLayer/RerollButton" method="_on_mouse_entered"]

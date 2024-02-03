@@ -4,6 +4,15 @@ class_name Tower extends StaticBody2D
 var targetPriority : Enemy.EnemyType = Enemy.EnemyType.MAGIC
 var targets : Array[Node2D] = []
 var attackTimer : float = 0.0
+var gold : float = 200.0
+var rerollCost : float = 200.0
+const rerollDelay : float = 60.0;
+var rerollTimer : float = 0.0
+
+const coinSprite = preload("res://Assets/Sprites/coin.png")
+@onready var goldLabel: RichTextLabel = $"../CanvasLayer/GoldLabel"
+@onready var rerollProgressBar: ProgressBar = $"../CanvasLayer/RerollProgressBar"
+
 
 @onready var weaponUpgradesSlots = $"../CanvasLayer/WeaponUpgrades"
 @onready var weaponUpgradeButtons = [
@@ -29,10 +38,10 @@ var attackTimer : float = 0.0
 		"upgradeIcon" = preload("res://Assets/Sprites/boulder_icon.png"),
 		"upgrades" = [
 			{
-				"damage" = 100,
-				"attackDelay" = 2.5,
+				"damage" = 200,
+				"attackDelay" = 3.5,
 				"targetCount" = 1,
-				"cost" = 0,
+				"cost" = 150,
 			},
 			{
 				"damage" = 120,
@@ -62,7 +71,7 @@ var attackTimer : float = 0.0
 				"damage" = 100,
 				"attackDelay" = 2.5,
 				"targetCount" = 1,
-				"cost" = 0,
+				"cost" = 200,
 			},
 			{
 				"damage" = 120,
@@ -104,9 +113,15 @@ func _reroll():
 		textureButton.description = ""
 		var weaponIdx = weaponIndices[i]
 		if weaponIdx >= 0:
-			textureButton.texture_normal = weapons[weaponIdx].upgradeIcon
-			var script = textureButton.get_script()
-			textureButton.description = weapons[weaponIdx].description
+			var weapon = weapons[weaponIdx]
+			var upgrade = weapon.upgrades[weapon.level]
+			textureButton.texture_normal = weapon.upgradeIcon
+			textureButton.icon = weapon.upgradeIcon
+			textureButton.abilityName = weapon.name
+			textureButton.cost = upgrade.cost
+			textureButton.description = weapon.description
+			textureButton.damage = upgrade.damage
+			textureButton.speed = upgrade.attackDelay
 
 	
 # We know that we are comparing Enemies here, which is why it works
@@ -119,7 +134,14 @@ func compare_enemies(a : Node2D, b : Node2D):
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
+	rerollTimer += delta;
+	if rerollTimer >= rerollDelay:
+		rerollTimer-= rerollDelay
+		_reroll()
+		
+	goldLabel.text = "[color=yellow] %d[/color]" % gold
+	rerollProgressBar.value = (rerollTimer / rerollDelay) * 100
 	
 	for weapon in weapons:
 		if weapon.area.visible:
@@ -161,32 +183,44 @@ func _process(delta):
 #	return  (a.global_position - global_position).length() > \
 #			(b.global_position - global_position).length()
 
-func _on_reroll_timer_timeout() -> void:
-	_reroll()
-	
-
-func _upgrade_weapon(idx : int):
+func _upgrade_weapon(idx : int) -> bool:
 	var weaponIdx = weaponIndices[idx]
 	if weaponIdx >= 0:
-		weapons[weaponIdx].level += 1
-		weaponIndices[idx] = -1
+		var weapon = weapons[weaponIdx]
+		var upgrade = weapon.upgrades[weapon.level]
+		if upgrade.cost <= gold:
+			weapon.level += 1
+			weaponIndices[idx] = -1
+			gold -= upgrade.cost
+			return true
+	return false
 
 func _on_texture_button_0_pressed() -> void:
 	var textureButton = weaponUpgradeButtons[0]
-	textureButton.texture_normal = null
-	_upgrade_weapon(0)
+	if _upgrade_weapon(0):
+		textureButton.texture_normal = null
+		textureButton.description = ""
 
 func _on_texture_button_1_pressed() -> void:
 	var textureButton = weaponUpgradeButtons[1]
-	textureButton.texture_normal = null
-	_upgrade_weapon(1)
+	if _upgrade_weapon(1):
+		textureButton.texture_normal = null
+		textureButton.description = ""
 
 func _on_texture_button_2_pressed() -> void:
 	var textureButton = weaponUpgradeButtons[2]
-	textureButton.texture_normal = null
-	_upgrade_weapon(2)
+	if _upgrade_weapon(2):
+		textureButton.texture_normal = null
+		textureButton.description = ""
 
 func _on_texture_button_3_pressed() -> void:
 	var textureButton = weaponUpgradeButtons[3]
-	textureButton.texture_normal = null
-	_upgrade_weapon(3)
+	if _upgrade_weapon(3):
+		textureButton.texture_normal = null
+		textureButton.description = ""
+
+func _on_reroll_button_pressed() -> void:
+	if rerollCost <= gold:
+		rerollTimer = 0.0
+		rerollCost += 100.0
+		_reroll()

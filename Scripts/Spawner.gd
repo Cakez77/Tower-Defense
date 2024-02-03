@@ -16,7 +16,7 @@ var spawns = [
 		"speed" : 10.0,
 		"health" : 200.0,
 		"attack" : 10.0,
-		"attackFrame" : 3
+		"attackFrame" : 3,
 	},
 	{
 		"start": 30.0,
@@ -29,7 +29,7 @@ var spawns = [
 		"speed" : 30.0,
 		"health" : 250.0,
 		"attack" : 10.0,
-		"attackFrame" : 3
+		"attackFrame" : 3,
 	}
 ]
 

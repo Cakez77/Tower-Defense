@@ -44,6 +44,7 @@ func _on_body_entered(body):
 					var impactEffect = impactEffectScene.instantiate()
 					impactEffect.global_position = target.global_position
 					impactEffect.emitting = true
+					impactEffect.finished.connect(func(): impactEffect.queue_free())
 					get_tree().get_root().add_child(impactEffect)
 			
 		queue_free()
